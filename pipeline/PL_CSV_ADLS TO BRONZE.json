@@ -1,0 +1,248 @@
+{
+	"name": "PL_CSV_ADLS TO BRONZE",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Student_ID",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "StudentID",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Age",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Age",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Gender",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Gender",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Academic_Level",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AcademicLevel",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Country",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Country",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Avg_Daily_Usage_Hours",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AvgDailyUsageHours",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Most_Used_Platform",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "MostUsedPlatform",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Affects_Academic_Performance",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AffectsAcademicPerformance",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Sleep_Hours_Per_Night",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "SleepHoursPerNight",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Mental_Health_Score",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "MentalHealthScore",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Relationship_Status",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "RelationshipStatus",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Conflicts_Over_Social_Media",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ConflictsOverSocialMedia",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Addicted_Score",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AddictedScore",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_SRC_ADLS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_TRGT_CSV",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Delete1",
+				"type": "Delete",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DS_SRC_ADLS",
+						"type": "DatasetReference"
+					},
+					"enableLogging": false,
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-02-26T04:14:18Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

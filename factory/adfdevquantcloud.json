@@ -1,0 +1,9 @@
+{
+	"name": "adfdevquantcloud",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c8207e97-a1be-4a80-96ec-b461b501c3bb",
+		"tenantId": "b19051f8-2d22-481f-b07a-7314ea79c53d"
+	}
+}
