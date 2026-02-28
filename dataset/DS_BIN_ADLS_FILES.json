@@ -1,0 +1,17 @@
+{
+	"name": "DS_BIN_ADLS_FILES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_dev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "bronze"
+			}
+		}
+	}
+}
