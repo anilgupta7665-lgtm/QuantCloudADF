@@ -289,6 +289,37 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_DEL_FILES')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls_dev",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"filename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
+						"fileSystem": "bronze"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls_dev')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PL_COPY_FILES')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -349,39 +380,6 @@
 						}
 					},
 					{
-						"name": "Delete1",
-						"type": "Delete",
-						"dependsOn": [
-							{
-								"activity": "ForEach1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataset": {
-								"referenceName": "DS_BIN_ADLS_FILES",
-								"type": "DatasetReference",
-								"parameters": {}
-							},
-							"enableLogging": false,
-							"storeSettings": {
-								"type": "AzureBlobFSReadSettings",
-								"recursive": true,
-								"enablePartitionDiscovery": false
-							}
-						}
-					},
-					{
 						"name": "ForEach1",
 						"type": "ForEach",
 						"dependsOn": [
@@ -394,6 +392,11 @@
 						],
 						"userProperties": [],
 						"typeProperties": {
+							"items": {
+								"value": "@activity('Filter only Files').output.value",
+								"type": "Expression"
+							},
+							"isSequential": true,
 							"activities": [
 								{
 									"name": "Copy data1",
@@ -458,6 +461,44 @@
 											"parameters": {}
 										}
 									]
+								},
+								{
+									"name": "Delete1",
+									"type": "Delete",
+									"dependsOn": [
+										{
+											"activity": "Copy data1",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"dataset": {
+											"referenceName": "DS_DEL_FILES",
+											"type": "DatasetReference",
+											"parameters": {
+												"filename": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
+										},
+										"enableLogging": false,
+										"storeSettings": {
+											"type": "AzureBlobFSReadSettings",
+											"recursive": true,
+											"enablePartitionDiscovery": false
+										}
+									}
 								}
 							]
 						}
@@ -471,7 +512,8 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_BIN_ADLS_FILES')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SRC_ONLY_FILES')]",
-				"[concat(variables('factoryId'), '/datasets/DS_TGT_ONLY_FILES')]"
+				"[concat(variables('factoryId'), '/datasets/DS_TGT_ONLY_FILES')]",
+				"[concat(variables('factoryId'), '/datasets/DS_DEL_FILES')]"
 			]
 		},
 		{
