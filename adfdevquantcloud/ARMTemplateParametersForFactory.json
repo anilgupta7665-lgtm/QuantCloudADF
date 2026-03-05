@@ -11,6 +11,9 @@
 		"ls_adls_dev_accountKey": {
 			"value": ""
 		},
+		"LS_AZURE_SQL_DATABASE_password": {
+			"value": ""
+		},
 		"AzureSqlDatabase1_properties_typeProperties_server": {
 			"value": "quantcloud.database.windows.net"
 		},
@@ -22,6 +25,15 @@
 		},
 		"ls_adls_dev_properties_typeProperties_url": {
 			"value": "https://adlsdevquant.dfs.core.windows.net/"
+		},
+		"LS_AZURE_SQL_DATABASE_properties_typeProperties_server": {
+			"value": "quantcloud.database.windows.net"
+		},
+		"LS_AZURE_SQL_DATABASE_properties_typeProperties_database": {
+			"value": "quantclouddb"
+		},
+		"LS_AZURE_SQL_DATABASE_properties_typeProperties_userName": {
+			"value": "quantcloud"
 		}
 	}
 }

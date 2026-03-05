@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_adls_dev'"
 		},
+		"LS_AZURE_SQL_DATABASE_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_AZURE_SQL_DATABASE'"
+		},
 		"AzureSqlDatabase1_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "quantcloud.database.windows.net"
@@ -30,6 +34,18 @@
 		"ls_adls_dev_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlsdevquant.dfs.core.windows.net/"
+		},
+		"LS_AZURE_SQL_DATABASE_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "quantcloud.database.windows.net"
+		},
+		"LS_AZURE_SQL_DATABASE_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "quantclouddb"
+		},
+		"LS_AZURE_SQL_DATABASE_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "quantcloud"
 		},
 		"containerUri": {
 			"type": "string",
@@ -64,6 +80,9 @@
 					"ls_adls_dev_accountKey": {
 						"value": "[parameters('ls_adls_dev_accountKey')]"
 					},
+					"LS_AZURE_SQL_DATABASE_password": {
+						"value": "[parameters('LS_AZURE_SQL_DATABASE_password')]"
+					},
 					"AzureSqlDatabase1_properties_typeProperties_server": {
 						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_server')]"
 					},
@@ -75,6 +94,15 @@
 					},
 					"ls_adls_dev_properties_typeProperties_url": {
 						"value": "[parameters('ls_adls_dev_properties_typeProperties_url')]"
+					},
+					"LS_AZURE_SQL_DATABASE_properties_typeProperties_server": {
+						"value": "[parameters('LS_AZURE_SQL_DATABASE_properties_typeProperties_server')]"
+					},
+					"LS_AZURE_SQL_DATABASE_properties_typeProperties_database": {
+						"value": "[parameters('LS_AZURE_SQL_DATABASE_properties_typeProperties_database')]"
+					},
+					"LS_AZURE_SQL_DATABASE_properties_typeProperties_userName": {
+						"value": "[parameters('LS_AZURE_SQL_DATABASE_properties_typeProperties_userName')]"
 					}
 				}
 			},
