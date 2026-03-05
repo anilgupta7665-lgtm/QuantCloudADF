@@ -1,0 +1,32 @@
+{
+	"name": "DS_TGT_ADLS_PQT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_dev",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TgtFilename": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "DS_SQL"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().TgtFilename",
+					"type": "Expression"
+				},
+				"folderPath": "SQLFiles",
+				"fileSystem": "raw"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
