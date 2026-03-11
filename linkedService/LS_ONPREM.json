@@ -1,0 +1,21 @@
+{
+	"name": "LS_ONPREM",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "HI\\SQLEXPRESS",
+			"database": "AdventureWorks2022",
+			"encrypt": "mandatory",
+			"trustServerCertificate": true,
+			"authenticationType": "SQL",
+			"userName": "test5",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyYjg4OGIxZi1lY2UzLTRiN2EtYTRhYS1mN2FhZDExYzE0MTciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IR-SELFHOSTED",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
